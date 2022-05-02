@@ -1,0 +1,147 @@
+﻿<Window x:Class="vedioplayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:vedioplayer"
+                ResizeMode='CanMinimize'
+        mc:Ignorable="d"
+
+        Title="视频播放器" Height="848" Width="1282" Background="#161616" Foreground="White">
+    <Window.Resources>
+
+        <Style x:Key="btnStyle" TargetType="{x:Type Button}">
+
+            <Setter Property="Background">
+
+                <Setter.Value>
+
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+
+                        <GradientStop Offset="0" Color="#3C4144"/>
+
+                        <GradientStop Offset="0.5" Color="#666A6E"/>
+
+                    </LinearGradientBrush>
+
+                </Setter.Value>
+
+            </Setter>
+
+            <Setter Property="FontStyle" Value="Italic"/>
+
+            <Setter Property="FontFamily" Value="黑体" />
+
+            <Setter Property="Margin" Value="5"/>
+
+            <Setter Property="Width" Value="65"/>
+
+            <Setter Property="Foreground" Value="White"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsMouseOver" Value="True">
+
+                    <Setter Property="Foreground" Value="#222425"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+
+        <Grid.Resources>
+
+            <Style x:Key="btnStyle" TargetType="Button">
+
+                <Setter Property="Background">
+
+                    <Setter.Value>
+
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+
+                            <GradientStop Offset="0" Color="#3C4144"/>
+
+                            <GradientStop Offset="0.5" Color="#666A6E"/>
+
+                        </LinearGradientBrush>
+
+                    </Setter.Value>
+
+                </Setter>
+
+                <Setter Property="FontStyle" Value="Italic"/>
+
+                <Setter Property="FontFamily" Value="黑体" />
+
+                <Setter Property="Margin" Value="5"/>
+
+                <Setter Property="Width" Value="65"/>
+
+                <Setter Property="Foreground" Value="White"/>
+
+                <Style.Triggers>
+
+                    <Trigger Property="Button.IsMouseOver" Value="True">
+
+                        <Setter Property="Foreground" Value="#222425"/>
+
+                    </Trigger>
+
+                </Style.Triggers>
+
+            </Style>
+
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="113*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="wallpaper.jpg" Stretch="Fill" Grid.RowSpan="2"/>
+
+        <StackPanel HorizontalAlignment="Center" Margin="519,2,480,10" Width="277">
+            <Border BorderThickness="3" Background="Black" Height="9" Width="106">
+
+                <Border.BorderBrush>
+
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+
+                        <GradientStop Offset="0" Color="#3C4144"/>
+
+                        <GradientStop Offset="0.5" Color="#222425"/>
+
+                    </LinearGradientBrush>
+
+                </Border.BorderBrush>
+
+            </Border>
+            <TextBlock Width="121" x:Name="txtTime" Height="28"/>
+
+            <StackPanel Orientation="Horizontal" Height="40" HorizontalAlignment="Center"/>
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="427,752,399,22" Width="450" Grid.RowSpan="2">
+            <Slider x:Name="volumeSlider" Minimum="0" VerticalAlignment="Center" Maximum="1" Value="0.5" Width="150" Margin="3,7,3,20"/>
+            <Button Height="33" x:Name="LocationBtn" Width="67" Margin="0,0,0,10" Style="{StaticResource btnStyle}" Click="LocationBtn_Click" FontStyle="Normal" Content="跳转至" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.045,-0.303"/>
+            <TextBox Height="29" x:Name="textBox1" Margin="0,0,0,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" RenderTransformOrigin="4.167,0.696" Width="55" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+
+        </StackPanel>
+        <Button x:Name="forwardBtn" Content="前进" Style="{StaticResource btnStyle}" Click="forwardBtn_Click" FontStyle="Normal" Margin="0,0,441,37" Width="68" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40" RenderTransformOrigin="0.691,0.412"/>
+        <Button x:Name="backBtn" Content="后退" Style="{StaticResource btnStyle}" Click="backBtn_Click" FontStyle="Normal" Margin="0,0,509,37" Width="72" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40"/>
+        <Button x:Name="stopBtn" Content="从头开始" Style="{StaticResource btnStyle}" Click="stopBtn_Click" FontStyle="Normal" Margin="0,0,581,37" Width="70" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40"/>
+        <Button x:Name="pauseBtn" Content="暂停" Style="{StaticResource btnStyle}" Click="pauseBtn_Click" FontStyle="Normal" Margin="0,0,651,37" Width="72" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40"/>
+        <Button x:Name="playBtn" Content="播放" Style="{StaticResource btnStyle}" Click="playBtn_Click" FontStyle="Normal" Margin="0,0,723,37" Width="74" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40"/>
+        <Button x:Name="openBtn" Content="选择视频" Style="{StaticResource btnStyle}" Click="openBtn_Click" FontStyle="Normal" Margin="0,0,797,37" Width="78" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40"/>
+        <MediaElement MediaEnded="mediaElement_MediaEnded" x:Name="mediaElement" MediaOpened="mediaElement_MediaOpened" Volume="{Binding Value, ElementName=volumeSlider}" UnloadedBehavior="Stop" Stretch="Fill" LoadedBehavior="Manual" Margin="95,33,95,0" VerticalAlignment="Top" Height="654" />
+        <TextBlock Foreground="White" Margin="401,740,825,18" VerticalAlignment="Center" Height="61" FontSize="14" Grid.RowSpan="2" RenderTransformOrigin="0.34,0.443"><Run Text="     "/><LineBreak/><Run Text="音量:"/></TextBlock>
+        <Button Height="40" x:Name="IsMutedBtn" Width="72" Margin="0,0,369,37" Style="{StaticResource btnStyle}" Click="IsMutedBtn_Click" FontStyle="Normal" Content="静音" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <TextBlock Text="秒" VerticalAlignment="Bottom" Margin="0,0,550,25" RenderTransformOrigin="-7.417,-2.067" Height="30" HorizontalAlignment="Right" Grid.RowSpan="2"/>
+        <Slider x:Name="timelineSlider" Margin="0,0,327,14" Width="129" HorizontalAlignment="Right" ValueChanged="timelineSlider_ValueChanged" VerticalAlignment="Bottom"/>
+        <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="拖动以调整进度" VerticalAlignment="Bottom" Margin="0,0,461,9" Height="20"/>
+    </Grid>
+</Window>
